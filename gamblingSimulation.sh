@@ -2,13 +2,14 @@
 #constants
 BET=1
 WIN=1
+STAKE=100
 MAX_DAYS=20
 MAX_PROFIT_PER_DAY=50
 MAX_LOSS_PER_DAY=-50
 #variables
 month=1
 nextMonth=yes
-function findNumOfWinsOrLossesPerMonth(){
+function findNumOfWinsAndLossesPerMonth(){
         for (( day=1; day<=$MAX_DAYS; day++ ))
         do
                 earnMoney=0
@@ -21,7 +22,7 @@ function findNumOfWinsOrLossesPerMonth(){
                                 earnMoney=$(($earnMoney-$BET))
                         fi
                 done
-                if [ $earnMoney -eq 50 ]
+                if [ $earnMoney -eq $MAX_PROFIT_PER_DAY ]
                 then
                         win[$day]=50
                         ((numOfWinsPerMonth++))
@@ -68,7 +69,7 @@ do
         numOfWinsPerMonth=0
         numOfLossesPerMonth=0
         #calling function to find number of wins and losses in a month
-        findNumOfWinsOrLossesPerMonth
+        findNumOfWinsAndLossesPerMonth
         totalAmount=$((50*(($numOfWinsPerMonth-$numOfLossesPerMonth))))
         if [ $totalAmount -gt 0 ]
         then
